@@ -33,18 +33,16 @@ let dir;
 document.addEventListener("keydown", direction);
 
 function direction(event) {
-    if (event.keyCode == 37) {
+    if (event.keyCode == 37 && dir != "RIGHT") {
         dir = "LEFT";
-    } else if (event.keyCode == 38) {
+    } else if (event.keyCode == 38 && dir != "DOWN") {
         dir = "UP";
-    } else if (event.keyCode == 39) {
+    } else if (event.keyCode == 39 && dir != "LEFT") {
         dir = "RIGHT";
-    } else if (event.keyCode == 40) {
+    } else if (event.keyCode == 40 && dir != "UP") {
         dir = "DOWN";
     }
 }
-
-
 
 // DRAW EVERYTHING TO THE CANVAS
 function draw() {
@@ -52,13 +50,48 @@ function draw() {
 
     for (let i = 0; i < snake.length; i++) {
         ctx.fillStyle = (i == 0) ? "green" : "white";
-        ctx.fillStyle = (snake[i].x, snake[i].y, box, box);
+        ctx.fillRect = (snake[i].x, snake[i].y, box, box);
 
         ctx.strokeStyle = "red";
         ctx.strokeRect(snake[i].x, snake[i].y, box, box);
     }
 
     ctx.drawImage(foodImg, food.x, food.y);
+
+    // OLD HEAD POSITION
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
+
+    // NEW HEAD POSITION
+    if (dir == "LEFT") {
+        snakeX -= box;
+    } else if (dir == "UP") {
+        snakeY -= box;
+    } else if (dir == "RIGHT") {
+        snakeX += box;
+    } else if (dir == "DOWN") {
+        snakeY += box;
+    }
+
+    // ADD NEW HEAD IF SNAKE EATS FOOD
+    if(snakeX == food.x && snakeY == food.y) {
+	score++;
+        food = {
+    		x: Math.floor(Math.random() * 17 + 1) * box,
+    		y: Math.floor(Math.random() * 15 + 3) * box
+	}
+    } else { 
+        // REMOVE THE TAIL
+    	snake.pop();
+    }
+   
+    // ADD NEW HEAD
+    let newHead = {
+	x : snakeX, 
+	y : snakeY
+    }
+
+    snake.unshift(newHead);
 
     ctx.fillStyle = "white";
     ctx.font = "45px Changa one";
