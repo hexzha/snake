@@ -74,21 +74,21 @@ function draw() {
     }
 
     // ADD NEW HEAD IF SNAKE EATS FOOD
-    if(snakeX == food.x && snakeY == food.y) {
-	score++;
+    if (snakeX == food.x && snakeY == food.y) {
+        score++;
         food = {
-    		x: Math.floor(Math.random() * 17 + 1) * box,
-    		y: Math.floor(Math.random() * 15 + 3) * box
-	}
-    } else { 
+            x: Math.floor(Math.random() * 17 + 1) * box,
+            y: Math.floor(Math.random() * 15 + 3) * box
+        }
+    } else {
         // REMOVE THE TAIL
-    	snake.pop();
+        snake.pop();
     }
-   
+
     // ADD NEW HEAD
     let newHead = {
-	x : snakeX, 
-	y : snakeY
+        x: snakeX,
+        y: snakeY
     }
 
     snake.unshift(newHead);
