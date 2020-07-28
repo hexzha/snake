@@ -73,7 +73,7 @@ function draw() {
         snakeY += box;
     }
 
-    // ADD NEW HEAD IF SNAKE EATS FOOD
+    // CHECK IF SNAKE EATS FOOD
     if (snakeX == food.x && snakeY == food.y) {
         score++;
         food = {
@@ -81,7 +81,7 @@ function draw() {
             y: Math.floor(Math.random() * 15 + 3) * box
         }
     } else {
-        // REMOVE THE TAIL
+        // REMOVE THE TAIL OTHERWISE
         snake.pop();
     }
 
@@ -93,6 +93,7 @@ function draw() {
 
     snake.unshift(newHead);
 
+    // UPDATE SCORE
     ctx.fillStyle = "white";
     ctx.font = "45px Changa one";
     ctx.fillText(score, 2 * box, 1.6 * box);
