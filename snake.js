@@ -44,6 +44,19 @@ function direction(event) {
     }
 }
 
+// COLLISION DETECTION 
+function collision(head, snake) {
+    for(let i = 0; i < snake.length; i++) {
+	if(head.x == snake[i].x && head.y == snake[i].y) {
+	    return true;
+	}
+    }
+    if(head.x < box || head.x > 17 * box || head.y < 3 * box || head.y > 17 * box) {
+	return true;
+    }
+    return false;
+}
+
 // DRAW EVERYTHING TO THE CANVAS
 function draw() {
     ctx.drawImage(ground, 0, 0);
@@ -89,6 +102,11 @@ function draw() {
     let newHead = {
         x: snakeX,
         y: snakeY
+    }
+
+    // GAME OVER
+    if(collision(newHead, snake)) {
+	clearInterval(game);	
     }
 
     snake.unshift(newHead);
