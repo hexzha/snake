@@ -11,6 +11,21 @@ ground.src = "img/ground.png";
 const foodImg = new Image();
 foodImg.src = "img/food.png";
 
+// LOAD AUDIO FILES
+const dead = new Audio();
+const eat = new Audio();
+const up = new Audio();
+const left = new Audio();
+const right = new Audio();
+const down = new Audio();
+
+dead.src = "audio/dead.mp3";
+eat.src = "audio/eat.mp3";
+up.src = "audio/up.mp3";
+down.src = "audio/down.mp3";
+left.src = "audio/left.mp3";
+right.src = "audio/right.mp3";
+
 // CREATE THE SNAKE
 let snake = [];
 snake[0] = {
@@ -35,12 +50,16 @@ document.addEventListener("keydown", direction);
 function direction(event) {
     if (event.keyCode == 37 && dir != "RIGHT") {
         dir = "LEFT";
+   	left.play(); 
     } else if (event.keyCode == 38 && dir != "DOWN") {
         dir = "UP";
+   	up.play(); 
     } else if (event.keyCode == 39 && dir != "LEFT") {
         dir = "RIGHT";
+   	right.play(); 
     } else if (event.keyCode == 40 && dir != "UP") {
         dir = "DOWN";
+   	down.play(); 
     }
 }
 
@@ -93,6 +112,7 @@ function draw() {
             x: Math.floor(Math.random() * 17 + 1) * box,
             y: Math.floor(Math.random() * 15 + 3) * box
         }
+   	eat.play(); 
     } else {
         // REMOVE THE TAIL OTHERWISE
         snake.pop();
@@ -106,6 +126,7 @@ function draw() {
 
     // GAME OVER
     if(collision(newHead, snake)) {
+   	dead.play(); 
 	clearInterval(game);	
     }
 
