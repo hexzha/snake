@@ -50,28 +50,29 @@ document.addEventListener("keydown", direction);
 function direction(event) {
     if (event.keyCode == 37 && dir != "RIGHT") {
         dir = "LEFT";
-   	left.play(); 
+    	left.play(); 
     } else if (event.keyCode == 38 && dir != "DOWN") {
         dir = "UP";
-   	up.play(); 
+      	up.play(); 
     } else if (event.keyCode == 39 && dir != "LEFT") {
         dir = "RIGHT";
-   	right.play(); 
+    	right.play(); 
     } else if (event.keyCode == 40 && dir != "UP") {
         dir = "DOWN";
-   	down.play(); 
+    	down.play(); 
     }
 }
 
 // COLLISION DETECTION 
 function collision(head, snake) {
     for(let i = 0; i < snake.length; i++) {
-	if(head.x == snake[i].x && head.y == snake[i].y) {
-	    return true;
-	}
+    	if(head.x == snake[i].x && head.y == snake[i].y) {
+    	    return true;
+    	}
     }
+   
     if(head.x < box || head.x > 17 * box || head.y < 3 * box || head.y > 17 * box) {
-	return true;
+	    return true;
     }
     return false;
 }
@@ -112,7 +113,7 @@ function draw() {
             x: Math.floor(Math.random() * 17 + 1) * box,
             y: Math.floor(Math.random() * 15 + 3) * box
         }
-   	eat.play(); 
+   	    eat.play(); 
     } else {
         // REMOVE THE TAIL OTHERWISE
         snake.pop();
@@ -126,8 +127,8 @@ function draw() {
 
     // GAME OVER
     if(collision(newHead, snake)) {
-   	dead.play(); 
-	clearInterval(game);	
+    	dead.play(); 
+    	clearInterval(game);	
     }
 
     snake.unshift(newHead);
