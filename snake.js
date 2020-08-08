@@ -26,14 +26,14 @@ down.src = "audio/down.mp3";
 left.src = "audio/left.mp3";
 right.src = "audio/right.mp3";
 
-// CREATE THE SNAKE
+// CREATE THE SNAKE AT RANDOM POSITION
 let snake = [];
 snake[0] = {
     x: Math.floor(Math.random() * 17 + 1) * box,
     y: Math.floor(Math.random() * 15 + 3) * box
 }
 
-// CREATE THE FOOD
+// CREATE THE FOOD AT RANDOM LOCATION
 let food = {
     x: Math.floor(Math.random() * 17 + 1) * box,
     y: Math.floor(Math.random() * 15 + 3) * box
@@ -65,15 +65,20 @@ function direction(event) {
 
 // COLLISION DETECTION 
 function collision(head, snake) {
+    // SELF LOOP 
     for(let i = 0; i < snake.length; i++) {
     	if(head.x == snake[i].x && head.y == snake[i].y) {
     	    return true;
     	}
     }
-   
+    
+    // WALL COLLISION
+    x: Math.floor(Math.random() * 17 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 3) * box
     if(head.x < box || head.x > 17 * box || head.y < 3 * box || head.y > 17 * box) {
 	    return true;
     }
+    
     return false;
 }
 
@@ -131,6 +136,7 @@ function draw() {
     	clearInterval(game);	
     }
 
+    // ADD NEWHEAD AS HEAD OF SNAKE 
     snake.unshift(newHead);
 
     // UPDATE SCORE
@@ -139,5 +145,5 @@ function draw() {
     ctx.fillText(score, 2 * box, 1.6 * box);
 }
 
-// CALL DRAW FUNCTION EVERY 100 ms
+// CALL DRAW FUNCTION EVERY 100 MS
 let game = setInterval(draw, 100);
